@@ -10,6 +10,7 @@ import { getAuthUrl, handleAuthCallback, isAuthorized, revokeAuth } from "./auth
  */
 export const getAuthUrlController = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log("getAuthUrlController is being run!");
         const authUrl = getAuthUrl();
 
         if (req.query.redirect === "true") {
@@ -35,7 +36,8 @@ export const authCallbackController = async (req: Request, res: Response, next: 
         }
 
         const tokens = await handleAuthCallback(code);
-        ApiResponse(res, 200, "Authorization successful", { authorized: true, tokens });
+        const dashboardUrl = process.env.DASHBOARD_URL || "http://localhost:3000";
+        res.redirect(`${dashboardUrl}/google-auth?authorized=true`);
     } catch (error) {
         next(error);
     }
