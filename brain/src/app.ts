@@ -19,9 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // router imports
 import brainRouter from "./brain/route"
+import googleTaskRouter from "./google-task/route"
+import googleAuthRouter from "./google-auth/route"
 
 // url mapping
 app.use("/api/v1/brain", brainRouter)
+app.use("/api/v1/google-tasks", googleTaskRouter)
+app.use("/api/v1/google-auth", googleAuthRouter)
 
 
 // global error handler
